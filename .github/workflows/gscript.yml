@@ -5,12 +5,12 @@ on: # This action will trigger when an issue is reopened or opened.
       - reopened
       - opened
       - closed
-  pull_request:
+  pull_request_target:
     types:
       - opened
 jobs: # The jobs that run in this workflow
   label_issues: # the first job is named as label_issues
-    if: github.event.action == 'opened' || github.event.action == 'reopened'
+    if: github.event_name == 'issues' && (github.event.action == 'opened' || github.event.action == 'reopened')
     runs-on: ubuntu-latest # This job will run on the latest version of Ubuntu.
     permissions: # This job requires write access to issues in order to add labels and comment.
       issues: write
@@ -80,5 +80,3 @@ jobs: # The jobs that run in this workflow
     
                     Please make sure you've read our [contributing guide](CONTRIBUTING.md) and we look forward to reviewing your Pull request shortly ✨`
                 })
-        
-
